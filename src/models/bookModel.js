@@ -21,18 +21,18 @@ const bookSchema = new Schema({
         type: Number,
         required: true
     },
-
-    
     stock: {
         type: Number,
         required: true
     },
+    status:{
+        type: Boolean,
+        default: true
+    }
 },
     {
         timestamps: true,
         versionKey: false
     }
 );
-
-
 export default model("Book", bookSchema);
