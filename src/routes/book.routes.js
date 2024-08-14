@@ -1,15 +1,18 @@
 import { Router } from "express";
-import { createBook, getBooks, updateBook } from "../controllers/bookController.js";
+import { createBook, deleteBook, getBooks, updateBook } from "../controllers/bookController.js";
 
 
 
 const router = Router();
 
-
+// endpoints para la obtencion de datos de libros
 router.get("/",  getBooks);
+// endpoints para la creacion de libros
 router.post("/save",  createBook);
-router.post("/edit",  updateBook);
-
+// endpoints para la actualizacion de libros
+router.post("/edit/:id",  updateBook);
+// endpoints para la eliminacion de libros
+router.post("/delete/:id",  deleteBook);
 
 
 export default router;
