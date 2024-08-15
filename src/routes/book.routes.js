@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createBook, deleteBook, getBookGender, getBooks, updateBook, updateBookStatus } from "../controllers/bookController.js";
+import { createBook, deleteBook, getBookCategory, getBooks, updateBook, updateBookStatus } from "../controllers/bookController.js";
 
 const router = Router();
 
@@ -14,6 +14,6 @@ router.post("/delete/:id",  deleteBook);
 //endpoints para el cambio de estado
 router.post("status/:id",  updateBookStatus);
 //endpoints para busqueda por genero opcional
-router.get("/:name",  getBookGender);
+router.get("/:name",  getBookCategory);
 
 export default router;

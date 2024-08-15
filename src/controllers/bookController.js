@@ -4,7 +4,7 @@ import categoriesModel from "../models/categoryModel.js";
 //funcion para obtener todos los libros
 export const getBooks = async (req, res) => {
     try {
-        const { status, page ,limit} = req.query; // Definir valores predeterminados para la página y el límite
+        const { status, page , limit} = req.query; // Definir valores predeterminados para la página y el límite
         // Construir la consulta base
         let query = bookModel.find()
         // Aplicar el filtro si `status` está definido
@@ -27,7 +27,7 @@ export const getBooks = async (req, res) => {
     }
 }
 
-export const getBookGender = async (req, res) => {
+export const getBookCategory = async (req, res) => {
     try {
         const { name } = req.params;
         // Buscar el género por nombre
