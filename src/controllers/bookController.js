@@ -1,14 +1,54 @@
 import bookModel from "../models/bookModel.js";
+import genderModel from "../models/genderModel.js";
 
 //funcion para obtener todos los libros
 export const getBooks = async (req, res) => {
-    try { 
-        const books = await bookModel.find().populate("gender", "name");
-        res.status(200).send(books);
+    try {
+        const { status, page ,limit} = req.query; // Definir valores predeterminados para la página y el límite
+        // Construir la consulta base
+        let query = bookModel.find()
+        // Aplicar el filtro si `status` está definido
+        if (status !== undefined) {
+            query = query.where("status").equals(status === "true");
+        }
+        const options = {
+        page: parseInt(page), // Página actual
+        limit: parseInt(limit), // Número de documentos por página
+        populate: {
+            path: "gender",
+            select: "name",
+        }
+        };
+        // Ejecutar la consulta con paginación
+        const result = await bookModel.paginate(query, options);
+        res.status(200).send(result);
     } catch (error) {
         res.status(401).send(`${error.message}`);
     }
 }
+
+export const getBookGender = async (req, res) => {
+    try {
+        const { name } = req.params;
+        // Buscar el género por nombre
+        const gender = await genderModel.findOne({ name: name});
+        if (!gender) {
+            return res.status(404).send("Género no encontrado");
+        }
+        // Buscar libros por ID de género
+        const books = await bookModel.find({ gender: gender._id }).populate("gender", "name");
+        
+        if (books.length === 0) {
+            return res.status(404).send("No se encontraron libros para el género especificado");
+        }
+
+        res.send(books);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Error en el servidor");
+    }
+};
+
 
 //funcion para crear un nuevo libro
 export const createBook = async (req, res) => {
