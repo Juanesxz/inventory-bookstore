@@ -15,7 +15,6 @@ export const createBook = async (req, res) => {
     try {
         const book = new bookModel(req.body);
         const newBook = await book.save();
-        console.log(newBook);
         res.status(200).send(newBook);
     } catch (error) {
         console.error(error.message);
@@ -28,7 +27,6 @@ export const updateBook = async (req, res) => {
     try {
         const { id } = req.params;
         await bookModel.findByIdAndUpdate(id, req.body);
-        console.log(req.body);
         res.status(200).send("Book updated");
     } catch (error) {
         console.error(error.message);
