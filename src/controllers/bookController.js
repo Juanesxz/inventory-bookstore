@@ -1,5 +1,5 @@
 import bookModel from "../models/bookModel.js";
-import genderModel from "../models/genderModel.js";
+import categoriesModel from "../models/categoryModel.js";
 
 //funcion para obtener todos los libros
 export const getBooks = async (req, res) => {
@@ -31,7 +31,7 @@ export const getBookGender = async (req, res) => {
     try {
         const { name } = req.params;
         // Buscar el género por nombre
-        const gender = await genderModel.findOne({ name: name});
+        const gender = await categoriesModel.findOne({ name: name});
         if (!gender) {
             return res.status(404).send("Género no encontrado");
         }

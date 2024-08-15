@@ -3,7 +3,7 @@ import { Schema, model } from "mongoose";
 
 
 
-const genderSchema = new Schema({
+const categoriesSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -18,4 +18,4 @@ const genderSchema = new Schema({
 
 
 
-export default model("Gender", genderSchema)
+export default model("Categories", categoriesSchema)

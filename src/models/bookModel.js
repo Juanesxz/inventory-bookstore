@@ -15,7 +15,7 @@ const bookSchema = new Schema({
     },
     gender: {
         type: mongoose.Schema.ObjectId,
-        ref: "Gender",
+        ref: "Categories",
         required: true
     },
     price: {
