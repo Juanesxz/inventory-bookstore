@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario de libros</title>
+</head>
+
+<body>
+
+    <a href="./pages/categories.html">categorias</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>title</th>
+                <th>author</th>
+                <th>gender</th>
+                <th>price</th>
+                <th>stock</th>
+                <th>status</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+    </table>
+
+
+    <form >
+        <div>
+
+            <label for="title">title</label>
+            <input type="text" name="title" id="title">
+        </div>
+
+        <div>
+
+            <label for="author">author</label>
+            <input type="text" name="author" id="author">
+        </div>
+
+        <div>
+            <label for="gender">gender</label>
+            <select name="gender" id="gender">
+            </select>
+        </div>
+
+
+        <div>
+            <label for="price">price</label>
+            <input type="number" name="price" id="price">
+        </div>
+
+        <div>
+            <label for="stock">stock</label>
+            <input type="number" name="stock" id="stock">
+        </div>
+
+
+
+
+        <input id="create" type="submit" value="enviar">
+    </form>
+
+
+</body>
+
+<script src="./vendor/js/JQuery.js"></script>
+<script type="module" src="./services/BookServices.js"></script>
+<script type="module" src="./js/index.js"></script>
+
+</html>
