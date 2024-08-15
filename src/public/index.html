@@ -2,61 +2,42 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inventario de libros</title>
+    <link rel="stylesheet" href="./css/style.css" />
 </head>
 
 <body>
+    <nav>
+        <span>Inventory-Book</span>
+        <ul>
+            <li class="current"><a>Inicio</a></li>
+            <li><a href="./pages/createBook.html">Gestion de libros</a></li>
+            <li><a>Categorias</a></li>
+        </ul>
+    </nav>
 
-    <a href="./pages/categories.html">categorias</a>
-
-    <table>
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>title</th>
-                <th>author</th>
-                <th>gender</th>
-                <th>price</th>
-                <th>stock</th>
-                <th>status</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody id="tbody">
-
-        </tbody>
-    </table>
-
-
-    <form >
-        <div>
-            <label for="title">title</label>
-            <input type="text" name="title" id="title">
+    <main class="content">
+        <div class="pagination">
+            <div>
+                <input type="button" id="pageprev" value="<">
+                <input id="pageact" type="number">
+                <input type="button" id="pageafter" value=">">
+            </div>
+            <label for="page">Pagina</label>
         </div>
-        <div>
+        <div class="card">
+            <div>
 
-            <label for="author">author</label>
-            <input type="text" name="author" id="author">
+            </div>
+
+
+        </div>
         </div>
 
-        <div>
-            <label for="gender">gender</label>
-            <select name="gender" id="gender">
-            </select>
-        </div>
-        <div>
-            <label for="price">price</label>
-            <input type="number" name="price" id="price">
-        </div>
+    </main>
 
-        <div>
-            <label for="stock">stock</label>
-            <input type="number" name="stock" id="stock">
-        </div>
-        <input id="create" type="submit" value="enviar">
-    </form>
 
 
 </body>

@@ -5,11 +5,24 @@ export default class BookServices {
         this.URL = "http://localhost:4000/api/books";
     }
 
-    async getBooks(page = 1, limit = 50) {
+    async getBooks(page = 1, limit = 10) {
         try {
             const response = await $.ajax({
                 type: "GET",
                 url: `${this.URL}?page=${page}&limit=${limit}`,
+                dataType: "json",
+            });
+            return response;
+        } catch (error) {
+            console.log("Error al obtener los libros:", error);
+        }
+    }
+
+        async getBooksActive(page = 1, limit = 2) {
+        try {
+            const response = await $.ajax({
+                type: "GET",
+                url: `${this.URL}?page=${page}&limit=${limit}&status=true`,
                 dataType: "json",
             });
             return response;

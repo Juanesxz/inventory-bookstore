@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Creacion de libros</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <nav>
+        <span>Inventory-Book</span>
+        <ul>
+
+            <li><a href="../index.html">Gestion de libros</a></li>
+            <li><a href="./createBook.html">Agregar y actualizar</a></li>
+            <li><a>Categorias</a></li>
+        </ul>
+    </nav>
+
+    <form>
+        <div>
+            <label for="title">Titulo</label>
+            <input type="text" name="title" id="title" />
+        </div>
+
+        <div>
+            <label for="author">Autor</label>
+            <input type="text" name="author" id="author" />
+        </div>
+
+        <div>
+            <label for="gender">gender</label>
+            <select name="gender" id="gender">
+            </select>
+        </div>
+
+        <div>
+            <label for="price">Precio</label>
+            <input type="number" name="price" id="price" />
+        </div>
+
+        <div>
+            <label for="stock">Stock</label>
+            <input type="number" name="stock" id="stock" />
+        </div>
+
+        <input id="create" type="submit" value="enviar">
+
+    </form>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>title</th>
+                <th>author</th>
+                <th>gender</th>
+                <th>price</th>
+                <th>stock</th>
+                <th>status</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+    </table>
+
+
+</body>
+
+<script src="../vendor/js/JQuery.js"></script>
+<script type="module" src="../services/BookServices.js"></script>
+<script type="module" src="../js/index.js"></script>
+
+</html>
