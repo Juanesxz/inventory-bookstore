@@ -18,7 +18,6 @@ export default class BookServices {
         }
     }
 
-
     async createBook(book) {
         try {
             const response = await $.ajax({
@@ -29,12 +28,24 @@ export default class BookServices {
                 dataType: "json",
             });
             console.log(book);
-            
+
             return response;
         } catch (error) {
             console.log("Error al crear el libro:", error);
         }
     }
 
-
+    async deleteBook(id) {
+        try {
+            const response = await $.ajax({
+                type: "POST",
+                url: `${this.URL}/delete/${id}`,
+                contentType: "application/json",
+                dataType: "json",
+            });
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }

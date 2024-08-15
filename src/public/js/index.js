@@ -21,6 +21,10 @@ const getBooks = async () => {
                 <td>${book.price}</td>
                 <td>${book.stock}</td>
                 <td>${book.status}</td>
+                <td>
+                <a href="./pages/editBook.html?id=${book._id}">Editar</a>
+                <a href="#" class="delete" data-id="${book._id}">Eliminar</a>
+                </td>
             </tr>
             `
         })
@@ -61,7 +65,19 @@ const createBook = async (e) => {
     getBooks()
 }
 
+const deleteBook = async (e) => {
+    e.preventDefault()
+    const bookId = $(e.target).data("id")
+
+    await bookServices.deleteBook(bookId)
+
+    getBooks()
+    
+    
+}
+
 
 $("#create").on("click", createBook)
 
+$(document).on("click", ".delete", deleteBook);
 })
