@@ -3,6 +3,16 @@ import BookRoutes from "./routes/book.routes.js";
 import CategoryRoutes from "./routes/category.routes.js";
 import morgan from "morgan";
 import "dotenv/config";
+import path from "path";
+import { fileURLToPath } from 'url';
+
+// Obtenemos el path del archivo
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+console.log(__filename);
+console.log(__dirname);
+
 
 // Instaciamos express
 const app = express();
@@ -12,10 +22,13 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 
+// Archivos estaticos
+app.use(express.static(path.join(__dirname, "./public")));
+
 
 // Rutas
 
-app.use("/api/book", BookRoutes);
+app.use("/api/books", BookRoutes);
 app.use("/api/category", CategoryRoutes);
 
 
