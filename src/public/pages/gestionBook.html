@@ -4,17 +4,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Creacion de libros</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <title>Gestion de libros</title>
+    <link rel="stylesheet" href="../css/styleBook.css">
 </head>
 
 <body>
 
-    <button id="modal">Abrir Modal</button>
-
-    <dialog class="modal" id="mainModal">
-        <h1>Gestion de libros</h1>
-    </dialog>
 
     <nav>
         <span>Inventory-Book</span>
@@ -25,68 +20,78 @@
             <li><a href="./pages/categories.html">Categorias</a></li>
         </ul>
     </nav>
-
-    <form>
-        <input type="hidden" name="id" id="id" value="">
-        <div>
-            <label for="title">Titulo</label>
-            <input type="text" name="title" id="title" />
-        </div>
-
-        <div>
-            <label for="author">Autor</label>
-            <input type="text" name="author" id="author" />
-        </div>
-
-        <div>
-            <label for="gender">gender</label>
-            <select name="gender" id="gender">
-            </select>
-        </div>
-
-        <div>
-            <label for="price">Precio</label>
-            <input type="number" name="price" id="price" />
-        </div>
-
-        <div>
-            <label for="stock">Stock</label>
-            <input type="number" name="stock" id="stock" />
-        </div>
-
-        <div>
-            <label for="status">Status</label>
-            <input type="text" name="status" id="status" />
-        </div>
-
-        <button id="create" type="submit">Guardar</button>
-
-    </form>
-    <div class="pagination">
-        <div>
-            <input type="button" id="pageprevBooks" value="<">
-            <input id="pageactBooks" type="number" readonly>
-            <input type="button" id="pageafterBooks" value=">">
-        </div>
-        <label for="page">Página de Libros</label>
+    <div class="container-add">
+        <button id="btn-abrir-modal" class="btn-add">Agregar libro</button>
     </div>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>title</th>
-                <th>author</th>
-                <th>gender</th>
-                <th>price</th>
-                <th>stock</th>
-                <th>status</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody id="tbody">
+    <dialog id="modal">
+        <form>
+            <input type="hidden" name="id" id="id" value="">
+            <div>
+                <label for="title">Titulo</label>
+                <input type="text" name="title" id="title" />
+            </div>
 
-        </tbody>
-    </table>
+            <div>
+                <label for="author">Autor</label>
+                <input type="text" name="author" id="author" />
+            </div>
+
+            <div>
+                <label for="gender">gender</label>
+                <select name="gender" id="gender">
+                </select>
+            </div>
+
+            <div>
+                <label for="price">Precio</label>
+                <input type="number" name="price" id="price" />
+            </div>
+
+            <div>
+                <label for="stock">Stock</label>
+                <input type="number" name="stock" id="stock" />
+            </div>
+
+            <button id="create" type="submit">Guardar</button>
+        </form>
+        <button id="btn-cerrar-modal">Cerrar</button>
+    </dialog>
+
+
+    <div class="container">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>title</th>
+                    <th>author</th>
+                    <th>gender</th>
+                    <th>price</th>
+                    <th>stock</th>
+                    <th>status</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+
+            <tfoot>
+                <th scope="row" colspan="8">
+                    <div class="pagination">
+                        <div>
+                            <input type="button" id="pageprevBooks" value="<">
+                            <input id="pageactBooks" type="number" readonly>
+                            <input type="button" id="pageafterBooks" value=">">
+                        </div>
+                        <label for="page">Página de Libros</label>
+                    </div>
+                </th>
+            </tfoot>
+        </table>
+
+    </div>
+
 
 
 </body>

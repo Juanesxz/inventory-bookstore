@@ -2,8 +2,28 @@ import BookServices from "../services/BookServices.js";
 import CategoriesServices from "../services/CategoriesServices.js";
 
 $(document).ready(() => {
+    //instancia de los servicios de libros y categorias
     const bookServices = new BookServices();
     const categoryServices = new CategoriesServices();
+
+
+    const btnAbrirModal = document.querySelector("#btn-abrir-modal");
+    const btnCerrarModal = document.querySelector("#btn-cerrar-modal");
+    const modal = document.querySelector("#modal");
+
+    if (btnAbrirModal && btnCerrarModal && modal) {
+
+        btnAbrirModal.addEventListener("click", () => {
+            modal.showModal();
+        });
+
+        btnCerrarModal.addEventListener("click", () => {
+            modal.close();
+            editingBookId = null;
+            resetForm();
+        });
+    }
+
 
     let currentPageBooks = 1;
     let totalPagesBooks = 1;
@@ -31,8 +51,8 @@ $(document).ready(() => {
                 <td>${book.stock}</td>
                 <td>${book.status}</td>
                 <td>
-                <a href="#" class="edit" data-id="${book._id}">Editar</a>
-                <a href="#" class="delete" data-id="${book._id}">Eliminar</a>
+                <button class="edit" data-id="${book._id}">Editar</button>
+                <button class="delete" data-id="${book._id}">Eliminar</button>
                 </td>
             </tr>
             `;
@@ -84,7 +104,6 @@ $(document).ready(() => {
         $("#gender").val("");
         $("#price").val("");
         $("#stock").val("");
-        $("#status").val("");
         editingBookId = null;
         $("#edit").text("Guardar").attr("id", "create");
     };
@@ -110,7 +129,6 @@ $(document).ready(() => {
             gender: $("#gender").val(),
             price: $("#price").val(),
             stock: $("#stock").val(),
-            status: $("#status").val(),
         };
 
         if (editingBookId) {
@@ -120,6 +138,7 @@ $(document).ready(() => {
             $("#edit").text("Guardar").attr("id", "create");
         } else {
             await bookServices.createBook(book);
+            modal.close();
         }
         resetForm();
         getBooks(currentPageBooks); // Refrescamos la lista actual de libros
@@ -144,10 +163,11 @@ $(document).ready(() => {
         $("#gender").val(book.gender?._id);
         $("#price").val(book.price);
         $("#stock").val(book.stock);
-        $("#status").val(book.status);
 
         editingBookId = bookId;
         $("#create").text("Actualizar").attr("id", "edit");
+
+        modal.showModal();
     };
 
     $("#pageprevBooks").on("click", () => {

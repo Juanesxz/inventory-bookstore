@@ -1,0 +1,321 @@
+nav {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.356);
+    display: flex;
+    align-items: center;
+
+    >span {
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    >ul {
+        list-style: none;
+        display: flex;
+        gap: 1rem;
+
+        >li {
+            cursor: pointer;
+
+            >a {
+                transition: 0.5s;
+                color: black;
+                text-decoration: none;
+            }
+
+            &:hover {
+                >a {
+                    color: gray;
+                }
+            }
+
+            &.current {
+                >a {
+                    color: gray;
+                }
+
+                border-bottom: 1px solid gray;
+            }
+        }
+    }
+}
+
+.container-add {
+    display: flex;
+    margin: 10px;
+}
+
+.btn-add {
+    background-color: rgba(34, 134, 255, 0.9);
+    color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.btn-add:hover {
+    background-color: rgba(137, 190, 251, 0.9);
+    color: rgba(255, 255, 255, 0.9);
+    transition: color 0.5s, background-color 0.5s;
+}
+
+table {
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Fondo blanco con opacidad */
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    /* Borde ligero */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    backdrop-filter: blur(10px);
+    /* Difuminado del fondo */
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    /* Borde ligero para las celdas */
+}
+
+th {
+    background-color: rgba(85, 85, 85, 0.9);
+    /* Encabezados con gris oscuro y opacidad */
+    color: rgba(255, 255, 255, 0.9);
+    /* Texto blanco con opacidad */
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+td {
+    color: rgba(0, 0, 0, 0.8);
+    /* Color de texto ligeramente oscuro */
+}
+
+tr:nth-child(even) {
+    background-color: rgba(242, 242, 242, 0.8);
+    /* Fondo alterno claro y opaco */
+}
+
+tr:hover {
+    background-color: rgba(224, 224, 224, 0.8);
+
+}
+
+/* Estilos para la paginación */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 15px;
+}
+
+.pagination div {
+    display: flex;
+    align-items: center;
+}
+
+.pagination input[type="button"] {
+    padding: 6px 12px;
+    margin: 0 5px;
+    border: 1px solid rgba(85, 85, 85, 0.9);
+    /* Borde gris oscuro con opacidad */
+    background-color: rgba(85, 85, 85, 0.9);
+    /* Fondo gris oscuro con opacidad */
+    color: rgba(255, 255, 255, 0.9);
+    /* Texto blanco con opacidad */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pagination input[type="button"]:hover {
+    background-color: rgba(65, 65, 65, 0.9);
+    /* Fondo gris más oscuro al pasar el cursor */
+}
+
+.pagination input[type="number"] {
+    width: 50px;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    /* Borde ligero */
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Fondo blanco con opacidad */
+}
+
+.pagination label {
+    margin-left: 10px;
+    color: rgba(0, 0, 0, 0.8);
+    /* Color de texto ligeramente oscuro */
+    font-size: 14px;
+}
+
+/* Responsividad con scroll */
+.container {
+    overflow-x: auto;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+
+    th,
+    td {
+        padding: 8px;
+    }
+
+    .pagination {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .pagination label {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 480px) {
+
+    th,
+    td {
+        padding: 8px;
+    }
+
+    .pagination {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .pagination label {
+        margin-left: 0;
+    }
+}
+
+
+/* Estilos básicos para el modal */
+dialog {
+    width: 80%;
+    max-width: 400px;
+    border: none;
+    border-radius: 8px;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    margin: auto;
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.3);
+    /* Fondo oscuro con opacidad para el backdrop */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+    border-color: #007bff;
+    /* Color del borde en estado de foco */
+    outline: none;
+}
+
+#create,
+#btn-cerrar-modal,
+.delete {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #007bff;
+    /* Color de fondo del botón */
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#create:hover {
+    background-color: #0056b3;
+    /* Color de fondo del botón al pasar el cursor */
+}
+
+#edit,
+.edit {
+    background-color: #28a745;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    /* Color de fondo del botón */
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+}
+
+#edit:hover,
+.edit:hover {
+    background-color: #2f8241;
+    /* Color de fondo del botón al pasar el cursor */
+}
+
+.delete {
+    background-color: #dc3545;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    /* Color de fondo del botón */
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button#btn-cerrar-modal {
+    width: 100%;
+    background-color: #dc3545;
+    /* Color de fondo del botón cerrar */
+    margin-top: 15px;
+}
+
+button#btn-cerrar-modal:hover,
+.delete:hover {
+    background-color: #c82333;
+    /* Color de fondo del botón cerrar al pasar el cursor */
+}
+
+/* Responsividad */
+@media (max-width: 600px) {
+    dialog {
+        width: 90%;
+        max-width: 100%;
+    }
+}
