@@ -89,7 +89,7 @@ $(document).ready(() => {
                     </div>
                     <div>
                         <label for="gender">Genero</label>
-                        <h4>${book.gender.name}</h4>
+                        <h4>${book.gender?.name}</h4>
                     </div>
                     <div>
                         <label for="price">Precio</label>
@@ -125,9 +125,9 @@ $(document).ready(() => {
         try {
             const categories = await categoryServices.getCategories();
             $("#gender").html(
-                categories.map((category) => {
+                categories.docs.map((category) => {
                     return `
-            <option value="${category._id}">${category.name}</option>
+            <option value="${category._id}">${category?.name}</option>
             `;
                 })
             );
