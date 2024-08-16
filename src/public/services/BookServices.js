@@ -99,4 +99,21 @@ export default class BookServices {
             }
         }
     }
+
+
+    async updateStatusBook(id) {
+        try {
+            const response = await $.ajax({
+                type: "POST",
+                url: `${this.URL}/status/${id}`,
+                dataType: "json",
+                contentType: "application/json",
+            });
+            return response;
+        } catch (error) {
+            return {
+                error: error,
+            }
+        }
+    }
 }

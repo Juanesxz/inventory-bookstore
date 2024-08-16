@@ -68,6 +68,11 @@ $(document).ready(() => {
             name: $("#name").val(),
         };
 
+        if (!categories.name) {
+            alert("Todos los campos son obligatorios");
+            return;
+        }
+
         try {
             if (editingCategoryId) {
                 await categoryServices.updateCategory(editingCategoryId, categories);
@@ -130,6 +135,19 @@ $(document).ready(() => {
             currentPageCategories++;
             getCategories(currentPageCategories);
         }
+    });
+
+    $("#pageCat").on("change", () => {
+        if ($("#pageCat").val() >= totalPagesCategories) {
+            $("#pageCat").val(totalPagesCategories);
+            currentPageCategories = $("#pageCat").val();
+            $("#inicio").text(`${currentPageCategories}`);
+        } else if ($("#pageCat").val() <= 1) {
+            $("#pageCat").val(1);
+            currentPageCategories = $("#pageCat").val();
+            $("#final").text(`${currentPageCategories}`);
+        }
+        getCategories($("#pageCat").val());
     });
 
     getCategories(currentPageCategories);

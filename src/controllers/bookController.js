@@ -67,6 +67,10 @@ export const getBookCategory = async (req, res) => {
 export const createBook = async (req, res) => {
     try {
         const book = new bookModel(req.body);
+        const gender = await categoriesModel.findById(req.body.gender).lean();
+        if (!gender) {
+            return res.status(404).send("Género no encontrado");
+        }
         const newBook = await book.save();
         res.status(200).send(newBook);
     } catch (error) {
@@ -101,6 +105,8 @@ export const updateBookStatus = async (req, res) => {
     try {
         const { id } = req.params;
         const book = await bookModel.findById(id);
+        console.log(book);
+
         book.status = !book.status;
         await book.save();
         res.send("Book status updated");

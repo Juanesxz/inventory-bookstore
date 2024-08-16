@@ -89,6 +89,7 @@ nav {
     >.card {
         display: grid;
         justify-content: center;
+        justify-items: center;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         /* Ajusta automáticamente el número de columnas */
         gap: 2rem;

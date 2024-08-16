@@ -54,6 +54,7 @@ $(document).ready(() => {
                 <td>
                 <button class="edit" data-id="${book._id}">Editar</button>
                 <button class="delete" data-id="${book._id}">Eliminar</button>
+                <button class="changestatus" data-id="${book._id}">Estado</button>
                 </td>
             </tr>
             `;
@@ -148,6 +149,11 @@ $(document).ready(() => {
             stock: $("#stock").val(),
         };
 
+        if (!book.title || !book.author || !book.gender || !book.price || !book.stock) {
+            alert("Todos los campos son obligatorios");
+            return;
+        }
+
         try {
             if (editingBookId) {
                 await bookServices.updateBook(editingBookId, book);
@@ -202,6 +208,20 @@ $(document).ready(() => {
 
     };
 
+    $("#pageactBooks").on("change", () => {
+        if ($("#pageactBooks").val() >= totalPagesBooks) {
+            $("#pageactBooks").val(totalPagesBooks);
+            currentPageBooks = $("#pageactBooks").val();
+            $("#inicio").text(`${currentPageBooks}`);;
+        } else if ($("#pageactBooks").val() <= 1) {
+            $("#pageactBooks").val(1);
+            currentPageBooks = $("#pageactBooks").val();
+            $("#fin").text(`${currentPageBooks}`);
+        }
+        getBooks($("#pageactBooks").val());
+    });
+
+
     $("#pageprevBooks").on("click", () => {
         if (currentPageBooks > 1) {
             currentPageBooks--;
@@ -215,6 +235,8 @@ $(document).ready(() => {
             getBooks(currentPageBooks);
         }
     });
+
+    //eventos click y change para la paginacion activa
 
     $("#pageprevBooksActive").on("click", () => {
         if (currentPageBooksActive > 1) {
@@ -230,10 +252,38 @@ $(document).ready(() => {
         }
     });
 
+    $("#pageactBooksActive").on("change", () => {
+        if ($("#pageactBooksActive").val() >= totalPagesBooksActive) {
+            $("#pageactBooksActive").val(totalPagesBooksActive);
+            currentPageBooksActive = $("#pageactBooksActive").val()
+            $("#inicio").text(`${currentPageBooksActive}`);;
+        } else if ($("#pageactBooksActive").val() <= 1) {
+            $("#pageactBooksActive").val(1);
+            currentPageBooksActive = $("#pageactBooksActive").val()
+            $("#fin").text(`${currentPageBooksActive}`);;
+        }
+        getBooksActive($("#pageactBooksActive").val());
+    });
+
     getBooks(currentPageBooks);
     getBooksActive(currentPageBooksActive);
+
+    const updateStatus = async (e) => {
+        e.preventDefault();
+        const bookId = $(e.target).data("id");
+        console.log(bookId);
+
+        try {
+            await bookServices.updateStatusBook(bookId);
+            getBooks(currentPageBooks);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     $("#create").on("click", createandeditBook);
     $(document).on("click", ".delete", deleteBook);
     $(document).on("click", ".edit", editBook);
+    $(document).on("click", ".changestatus", updateStatus);
+
 });

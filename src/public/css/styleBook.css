@@ -292,6 +292,24 @@ select:focus {
     /* Color de fondo del botón al pasar el cursor */
 }
 
+
+.changestatus {
+    background-color: #f8d84b;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    /* Color de fondo del botón */
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+}
+
+.changestatus:hover {
+    background-color: #dab200;
+    /* Color de fondo del botón al pasar el cursor */
+}
+
 .delete {
     background-color: #dc3545;
     padding: 8px 12px;
