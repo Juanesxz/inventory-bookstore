@@ -6,16 +6,18 @@ export default class CategoriesServices {
 
 
 
-    async getCategories() {
+    async getCategories(page = 1, limit = 10) {
         try {
             const response = await $.ajax({
                 type: "GET",
-                url: this.URL,
+                url: `${this.URL}?page=${page}&limit=${limit}`,
                 dataType: "json",
             });
             return response;
         } catch (error) {
-            console.log("Error al obtener las categorias:", error);
+            return {
+                error: error,
+            }
         }
     }
 
@@ -29,7 +31,9 @@ export default class CategoriesServices {
             });
             return response;
         } catch (error) {
-            console.log("Error al obtener la categoria:", error);
+            return {
+                error: error,
+            }
         }
     }
 
@@ -44,7 +48,9 @@ export default class CategoriesServices {
             });
             return response;
         } catch (error) {
-            console.log("Error al crear la categoria:", error);
+            return {
+                error: error
+            }
         }
     }
 
@@ -58,7 +64,9 @@ export default class CategoriesServices {
             });
             return response;
         } catch (error) {
-            console.log(error);
+            return {
+                error: error
+            }
         }
     }
 
@@ -72,10 +80,9 @@ export default class CategoriesServices {
                 dataType: "json",
                 contentType: "application/json",
             });
-            console.log(id);
             return response;
         } catch (error) {
-            console.log(error);
+            return error
         }
     }
 

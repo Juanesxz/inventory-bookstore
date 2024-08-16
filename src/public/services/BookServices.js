@@ -14,7 +14,9 @@ export default class BookServices {
             });
             return response;
         } catch (error) {
-            console.log("Error al obtener los libros:", error);
+            return {
+                error: error,
+            };
         }
     }
 
@@ -27,7 +29,9 @@ export default class BookServices {
             });
             return response;
         } catch (error) {
-            console.log("Error al obtener los libros:", error);
+            return {
+                error: error,
+            }
         }
     }
 
@@ -40,7 +44,9 @@ export default class BookServices {
             });
             return response;
         } catch (error) {
-            console.log("Error al obtener los libros:", error);
+            return {
+                error: error,
+            };
         }
     }
 
@@ -53,11 +59,11 @@ export default class BookServices {
                 contentType: "application/json",
                 dataType: "json",
             });
-            console.log(book);
-
             return response;
         } catch (error) {
-            console.log("Error al crear el libro:", error);
+            return {
+                error: error,
+            }
         }
     }
 
@@ -71,7 +77,9 @@ export default class BookServices {
             });
             return response;
         } catch (error) {
-            console.log(error);
+            return {
+                error: error,
+            }
         }
     }
 
@@ -84,10 +92,11 @@ export default class BookServices {
                 dataType: "json",
                 contentType: "application/json",
             });
-            console.log(id);
             return response;
         } catch (error) {
-            console.log(error);
+            return {
+                error: error,
+            }
         }
     }
 }

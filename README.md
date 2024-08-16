@@ -4,7 +4,6 @@ Este proyecto esta creado con node y express en el cual se puede crear un libro,
 
 ## Requisitos para la instalaccion
 
-
 1)En primer lugar tienes que descargar el proyecto desde [github](https://github.com/juanesxz/inventory-bookstore.git)
 
 2)Despues tienes que descargar [MongoDB](https://www.mongodb.com/try/download/community-kubernetes-operator) para la base de datos esto incluye una herramienta llamada MongoDBCompass en cual es una herramienta interactiva gratuita para consultar, optimizar y analizar sus datos en MongoDB.
@@ -17,8 +16,6 @@ npm i
 
 4)Despues tienes que ejecutar el comando npm start para correr el servidor.
 
-
 ## Frontend
 
-para poder visualizar el frotend necesitamos descargarlo desde github como el proyecto. Para hacer esto tendras que descargar el proyecto desde [github](https://github.com/juanesxz/inventory-bookstore.git)
-
+El fronted se encuentra en la carpeta public. usando express servimos los archivos estaticos en la ruta principal.

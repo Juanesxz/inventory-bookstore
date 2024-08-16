@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import mongoosePaginate from "mongoose-paginate-v2";
 
 
 
@@ -16,6 +17,8 @@ const categoriesSchema = new Schema({
     }
 )
 
+
+categoriesSchema.plugin(mongoosePaginate);
 
 
 export default model("Categories", categoriesSchema)

@@ -24,24 +24,25 @@ $(document).ready(() => {
         });
     }
 
-
+    // Variables para controlar la paginación de libros en general
     let currentPageBooks = 1;
     let totalPagesBooks = 1;
 
+    // Variables para controlar la paginación de libros activos
     let currentPageBooksActive = 1;
     let totalPagesBooksActive = 1;
 
     let editingBookId = null;
 
     const getBooks = async (page = 1) => {
-        const books = await bookServices.getBooks(page);
-        totalPagesBooks = books.totalPages;
-        console.log(books);
+        try {
+            const books = await bookServices.getBooks(page);
+            totalPagesBooks = books.totalPages;
 
-        const tbody = $("#tbody");
-        tbody.html(
-            books.docs.map((book, i) => {
-                return `
+            const tbody = $("#tbody");
+            tbody.html(
+                books.docs.map((book, i) => {
+                    return `
             <tr>
                 <td>${i + 1}</td>
                 <td>${book.title}</td>
@@ -56,22 +57,26 @@ $(document).ready(() => {
                 </td>
             </tr>
             `;
-            })
-        );
-        $("#pageactBooks").val(page);
-        $("#inicio").text(`${currentPageBooks}`);
-        $("#final").text(`${totalPagesBooks}`);
+                })
+            );
+            $("#pageactBooks").val(page);
+            $("#inicio").text(`${currentPageBooks}`);
+            $("#final").text(`${totalPagesBooks}`);
+        } catch (error) {
+            alert(error);
+        }
+
     };
 
     const getBooksActive = async (page = 1) => {
-        const books = await bookServices.getBooksActive(page);
-        totalPagesBooksActive = books.totalPages;
-        console.log(books);
+        try {
+            const books = await bookServices.getBooksActive(page);
+            totalPagesBooksActive = books.totalPages;
 
-        const card = $(".card");
-        card.html(
-            books.docs.map((book) => {
-                return `
+            const card = $(".card");
+            card.html(
+                books.docs.map((book) => {
+                    return `
                 <div>
                     <img src="./img/fondo.jpg" alt="">
                     <div>
@@ -95,11 +100,15 @@ $(document).ready(() => {
                         <h4>${book.stock}</h4>
                     </div>
                 </div>`;
-            })
-        );
-        $("#pageactBooksActive").val(page);
-        $("#inicioa").text(`${currentPageBooksActive}`);
-        $("#finala").text(`${totalPagesBooksActive}`);
+                })
+            );
+            $("#pageactBooksActive").val(page);
+            $("#inicioa").text(`${currentPageBooksActive}`);
+            $("#finala").text(`${totalPagesBooksActive}`);
+        } catch (error) {
+            alert(error);
+        }
+
     };
 
     const resetForm = () => {
@@ -113,14 +122,18 @@ $(document).ready(() => {
     };
 
     const getCategories = async () => {
-        const categories = await categoryServices.getCategories();
-        $("#gender").html(
-            categories.map((category) => {
-                return `
+        try {
+            const categories = await categoryServices.getCategories();
+            $("#gender").html(
+                categories.map((category) => {
+                    return `
             <option value="${category._id}">${category.name}</option>
             `;
-            })
-        );
+                })
+            );
+        } catch (error) {
+            alert(error);
+        }
     };
 
     getCategories();
@@ -135,15 +148,19 @@ $(document).ready(() => {
             stock: $("#stock").val(),
         };
 
-        if (editingBookId) {
-            await bookServices.updateBook(editingBookId, book);
-            resetForm();
-            editingBookId = null;
-            $("#edit").text("Guardar").attr("id", "create");
-            modal.close();
-        } else {
-            await bookServices.createBook(book);
-            modal.close();
+        try {
+            if (editingBookId) {
+                await bookServices.updateBook(editingBookId, book);
+                resetForm();
+                editingBookId = null;
+                $("#edit").text("Guardar").attr("id", "create");
+                modal.close();
+            } else {
+                await bookServices.createBook(book);
+                modal.close();
+            }
+        } catch (error) {
+            console.error(error);
         }
         resetForm();
         getBooks(currentPageBooks); // Refrescamos la lista actual de libros
@@ -152,25 +169,37 @@ $(document).ready(() => {
     const deleteBook = async (e) => {
         e.preventDefault();
         const bookId = $(e.target).data("id");
-        await bookServices.deleteBook(bookId);
-        getBooks(currentPageBooks);
+        const confirmation = confirm("¿Seguro que quieres borrar este libro?");
+        if (!confirmation) return;
+
+        try {
+            await bookServices.deleteBook(bookId);
+            getBooks(currentPageBooks);
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     const editBook = async (e) => {
         e.preventDefault();
         const bookId = $(e.target).data("id");
-        const book = await bookServices.getBook(bookId);
 
-        $("#title").val(book.title);
-        $("#author").val(book.author);
-        $("#gender").val(book.gender?._id);
-        $("#price").val(book.price);
-        $("#stock").val(book.stock);
+        try {
+            const book = await bookServices.getBook(bookId);
+            $("#title").val(book.title);
+            $("#author").val(book.author);
+            $("#gender").val(book.gender?._id);
+            $("#price").val(book.price);
+            $("#stock").val(book.stock);
+            editingBookId = bookId;
+            $("#create").text("Actualizar").attr("id", "edit");
 
-        editingBookId = bookId;
-        $("#create").text("Actualizar").attr("id", "edit");
+            modal.showModal();
+        } catch (error) {
+            console.error(error);
+        }
 
-        modal.showModal();
+
     };
 
     $("#pageprevBooks").on("click", () => {
