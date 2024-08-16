@@ -4,7 +4,7 @@ Este proyecto esta creado con node y express en el cual se puede crear un libro,
 
 ## Requisitos y pasos para la instalaccion
 
-1. En primer lugar para antes de descargar el proyecto tenemos que tener instalado node para poder ejecutar el proyecto e instalar los paquetes necesarios, puedes descargarlo desde este link [Node](https://nodejs.org/en)
+1)En primer lugar para antes de descargar el proyecto tenemos que tener instalado node para poder ejecutar el proyecto e instalar los paquetes necesarios, puedes descargarlo desde este link [Node](https://nodejs.org/en)
 
 2)Despues tienes que descargar [MongoDB](https://www.mongodb.com/try/download/community-kubernetes-operator) para la gestion de la base de datos esto incluye una herramienta llamada MongoDBCompass en cual es una herramienta interactiva gratuita para consultar, optimizar y analizar sus datos en MongoDB.
 
@@ -81,3 +81,7 @@ Esta estructura es la que se uso para la creacion de este proyecto backend y es 
 ### Diseño
 
 El diseño del proyecto en el fronted fue diseñada de forma simple pero llamativa para el usuario, de forma el proyecto se enfoque en la facilidad de uso.
+
+## NOTA
+
+- Para Crar libros tienes que tener categorias creadas por eso puedes usar un comando `npm run categories` para crear unas categorias por defecto.

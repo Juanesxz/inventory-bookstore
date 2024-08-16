@@ -7,16 +7,19 @@ $(document).ready(() => {
     const categoryServices = new CategoriesServices();
 
 
+    // Variables para controlar el modal
     const btnAbrirModal = document.querySelector("#btn-abrir-modal");
     const btnCerrarModal = document.querySelector("#btn-cerrar-modal");
     const modal = document.querySelector("#modal");
 
+    //validacion de la existencia de los elementos si no esta en la pagina correspondiente
     if (btnAbrirModal && btnCerrarModal && modal) {
-
+        // Funcion para abrir el modal
         btnAbrirModal.addEventListener("click", () => {
             modal.showModal();
         });
 
+        // Funcion para cerrar el modal
         btnCerrarModal.addEventListener("click", () => {
             modal.close();
             editingBookId = null;
@@ -32,8 +35,10 @@ $(document).ready(() => {
     let currentPageBooksActive = 1;
     let totalPagesBooksActive = 1;
 
+    // Variables para controlar la edicion y creacion de libros
     let editingBookId = null;
 
+    // Funcion para obtener todos los libros y renderizarlos
     const getBooks = async (page = 1) => {
         try {
             const books = await bookServices.getBooks(page);
@@ -69,6 +74,7 @@ $(document).ready(() => {
 
     };
 
+    // Funcion para obtener todos los libros activos y renderizarlos
     const getBooksActive = async (page = 1) => {
         try {
             const books = await bookServices.getBooksActive(page);
@@ -112,6 +118,7 @@ $(document).ready(() => {
 
     };
 
+    // Funcion para resetear el formulario
     const resetForm = () => {
         $("#title").val("");
         $("#author").val("");
@@ -122,6 +129,7 @@ $(document).ready(() => {
         $("#edit").text("Guardar").attr("id", "create");
     };
 
+    // Funcion para obtener todas las categorías
     const getCategories = async () => {
         try {
             const categories = await categoryServices.getCategories();
@@ -137,8 +145,10 @@ $(document).ready(() => {
         }
     };
 
+    // Obtener todas las categorías
     getCategories();
 
+    // Funcion para crear y editar libros
     const createandeditBook = async (e) => {
         e.preventDefault();
         const book = {
@@ -149,12 +159,14 @@ $(document).ready(() => {
             stock: $("#stock").val(),
         };
 
+        // Validaciones de campos
         if (!book.title || !book.author || !book.gender || !book.price || !book.stock) {
             alert("Todos los campos son obligatorios");
             return;
         }
 
         try {
+            // condicional de verificacion para crear o editar
             if (editingBookId) {
                 await bookServices.updateBook(editingBookId, book);
                 resetForm();
@@ -172,6 +184,7 @@ $(document).ready(() => {
         getBooks(currentPageBooks); // Refrescamos la lista actual de libros
     };
 
+    // Funcion para borrar libros
     const deleteBook = async (e) => {
         e.preventDefault();
         const bookId = $(e.target).data("id");
@@ -186,6 +199,7 @@ $(document).ready(() => {
         }
     };
 
+    // Funcion para pintar los datos en el modelo
     const editBook = async (e) => {
         e.preventDefault();
         const bookId = $(e.target).data("id");
@@ -204,10 +218,11 @@ $(document).ready(() => {
         } catch (error) {
             console.error(error);
         }
-
-
     };
 
+
+
+    //eventos click y change para la paginacion de libros en general
     $("#pageactBooks").on("change", () => {
         if ($("#pageactBooks").val() >= totalPagesBooks) {
             $("#pageactBooks").val(totalPagesBooks);
@@ -268,6 +283,8 @@ $(document).ready(() => {
     getBooks(currentPageBooks);
     getBooksActive(currentPageBooksActive);
 
+
+    // Funcion para cambiar el estado de un libro
     const updateStatus = async (e) => {
         e.preventDefault();
         const bookId = $(e.target).data("id");
@@ -281,6 +298,7 @@ $(document).ready(() => {
         }
     };
 
+    // Funcion en generar a la hora de precionar los botones correspondiente
     $("#create").on("click", createandeditBook);
     $(document).on("click", ".delete", deleteBook);
     $(document).on("click", ".edit", editBook);

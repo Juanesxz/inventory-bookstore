@@ -28,6 +28,7 @@ export const getBooks = async (req, res) => {
 }
 
 
+//funcion para obtener un libro
 export const getBook = async (req, res) => {
     try {
         const { id } = req.params;
@@ -41,6 +42,8 @@ export const getBook = async (req, res) => {
     }
 };
 
+
+//funcion para obtener libros por genero
 export const getBookCategory = async (req, res) => {
     try {
         const { name } = req.params;
@@ -101,6 +104,8 @@ export const deleteBook = async (req, res) => {
     }
 }
 
+
+//funcion para actualizar el estado de un libro
 export const updateBookStatus = async (req, res) => {
     try {
         const { id } = req.params;

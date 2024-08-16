@@ -1,3 +1,4 @@
+// Importacion del servicio de categorias
 import CategoriesServices from "../services/CategoriesServices.js";
 
 
@@ -5,23 +6,25 @@ $(document).ready(() => {
     //instancia de los servicios de libros y categorias
     const categoryServices = new CategoriesServices();
 
+    // Variables para controlar el modal
     let btnAbrirModal = document.querySelector("#btn-abrir-modal");
     let btnCerrarModal = document.querySelector("#btn-cerrar-modal");
     let modal = document.querySelector("#modal");
 
+    // Variables para controlar la edicion
     let editingCategoryId = null;
 
+    // Funcion para resetear el formulario
     const resetForm = () => {
         $("#name").val("");
         editingCategoryId = null;
         $("#edit").text("Guardar").attr("id", "create");
     };
 
-
+    // Eventos para el modal
     btnAbrirModal.addEventListener("click", () => {
         modal.showModal();
     });
-
     btnCerrarModal.addEventListener("click", () => {
         modal.close();
         editingCategoryId = null;
@@ -32,9 +35,7 @@ $(document).ready(() => {
     let currentPageCategories = 1;
     let totalPagesCategories = 1;
 
-
-
-
+    // Funcion para obtener todas las categorías y renderizarlas
     const getCategories = async (page = 1) => {
         try {
             const categories = await categoryServices.getCategories(page);
@@ -62,6 +63,7 @@ $(document).ready(() => {
         }
     };
 
+    // Funcion para crear y editar categorías
     const createandeditCategories = async (e) => {
         e.preventDefault();
         const categories = {
@@ -93,6 +95,8 @@ $(document).ready(() => {
         getCategories(currentPageCategories); // Refrescamos la lista actual de libros
     };
 
+
+    // Funcion para borrar categorías
     const deleteCategories = async (e) => {
         e.preventDefault();
         const id = $(e.target).data("id");
@@ -106,6 +110,8 @@ $(document).ready(() => {
         }
     };
 
+
+    // Funcion para editar categorías
     const editingCategory = async (e) => {
         e.preventDefault();
         const categoriesId = $(e.target).data("id");
@@ -123,6 +129,7 @@ $(document).ready(() => {
     };
 
 
+    // Eventos para la paginación incluyendo el en los botones y en el input
     $("#pageprevCat").on("click", () => {
         if (currentPageCategories > 1) {
             currentPageCategories--;
@@ -150,8 +157,10 @@ $(document).ready(() => {
         getCategories($("#pageCat").val());
     });
 
+    // Llamamos a la funcion para cargar la primera vez
     getCategories(currentPageCategories);
 
+    // Llamamos a la funcion para crear, borrar y editar categorías
     $("#create").on("click", createandeditCategories);
     $(document).on("click", ".delete", deleteCategories);
     $(document).on("click", ".edit", editingCategory);

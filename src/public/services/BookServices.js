@@ -1,10 +1,11 @@
-// public/js/BookServices.js
-
+// Servicio de libros
 export default class BookServices {
     constructor() {
+        // URL de los correspondiente al endpoint de libros
         this.URL = "http://localhost:4000/api/books";
     }
 
+    // Metodo para obtener todos los libros
     async getBooks(page = 1, limit = 10) {
         try {
             const response = await $.ajax({
@@ -20,6 +21,7 @@ export default class BookServices {
         }
     }
 
+    // Metodo para obtener un libro
     async getBook(id) {
         try {
             const response = await $.ajax({
@@ -35,6 +37,7 @@ export default class BookServices {
         }
     }
 
+    // Metodo para obtener los libros activos
     async getBooksActive(page = 1, limit = 10) {
         try {
             const response = await $.ajax({
@@ -50,6 +53,7 @@ export default class BookServices {
         }
     }
 
+    // Metodo para crear un libro
     async createBook(book) {
         try {
             const response = await $.ajax({
@@ -67,6 +71,7 @@ export default class BookServices {
         }
     }
 
+    // Metodo para borrar un libro
     async deleteBook(id) {
         try {
             const response = await $.ajax({
@@ -83,6 +88,7 @@ export default class BookServices {
         }
     }
 
+    // Metodo para editar un libro
     async updateBook(id, book) {
         try {
             const response = await $.ajax({
@@ -101,6 +107,7 @@ export default class BookServices {
     }
 
 
+    // Metodo para cambiar el estado de un libro
     async updateStatusBook(id) {
         try {
             const response = await $.ajax({

@@ -22,7 +22,7 @@ app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "./public")));
 
 
-// Rutas
+// Rutas 
 
 app.use("/api/books", BookRoutes);
 app.use("/api/category", CategoryRoutes);

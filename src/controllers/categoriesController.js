@@ -1,6 +1,7 @@
 import categoriesModel from "../models/categoryModel.js";
 
 
+// Funcion para obtener todas las categorías
 export const getCategories = async (req, res) => {
     const { page, limit } = req.query; // Definir valores predeterminados para la página y el límite
     try {
@@ -16,6 +17,8 @@ export const getCategories = async (req, res) => {
     }
 
 }
+
+// Funcion para crear una nueva categoría
 export const createCategory = async (req, res) => {
     try {
         const category = new categoriesModel(req.body);
@@ -26,6 +29,7 @@ export const createCategory = async (req, res) => {
     }
 }
 
+// Funcion para obtener una categoría
 export const getCategory = async (req, res) => {
     try {
         const { id } = req.params;
@@ -39,6 +43,7 @@ export const getCategory = async (req, res) => {
     }
 };
 
+// Funcion para editar una categoría
 export const editCategory = async (req, res) => {
     try {
         const { id } = req.params;
@@ -49,6 +54,7 @@ export const editCategory = async (req, res) => {
     }
 }
 
+// Funcion para borrar una categoría
 export const deleteCategory = async (req, res) => {
     try {
         const { id } = req.params;

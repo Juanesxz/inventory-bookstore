@@ -1,7 +1,7 @@
 import { connect } from "mongoose";
 
 
-//funcion autoejecutable de la conexion de kla base de datos
+//funcion autoejecutable de la conexion de la base de datos
 (async () => {
   try {
     const db = await connect(process.env.DB_CNN);

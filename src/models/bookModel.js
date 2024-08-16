@@ -2,6 +2,8 @@ import mongoose, { Schema, model } from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 
 
+//Creacion del esquema del modelo libro
+
 const bookSchema = new Schema({
     title: {
         type: String,
@@ -26,7 +28,7 @@ const bookSchema = new Schema({
         type: Number,
         required: true
     },
-    status:{
+    status: {
         type: Boolean,
         default: true
     }
@@ -37,7 +39,7 @@ const bookSchema = new Schema({
     }
 );
 
-
+// Utilizar plugin de paginacion
 bookSchema.plugin(mongoosePaginate);
-
+//Exportacion del modelo de libros
 export default model("Book", bookSchema);
