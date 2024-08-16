@@ -18,7 +18,20 @@ export default class BookServices {
         }
     }
 
-        async getBooksActive(page = 1, limit = 2) {
+    async getBook(id) {
+        try {
+            const response = await $.ajax({
+                type: "GET",
+                url: `${this.URL}/${id}`,
+                dataType: "json",
+            });
+            return response;
+        } catch (error) {
+            console.log("Error al obtener los libros:", error);
+        }
+    }
+
+    async getBooksActive(page = 1, limit = 10) {
         try {
             const response = await $.ajax({
                 type: "GET",
@@ -56,6 +69,22 @@ export default class BookServices {
                 contentType: "application/json",
                 dataType: "json",
             });
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async updateBook(id, book) {
+        try {
+            const response = await $.ajax({
+                type: "POST",
+                url: `${this.URL}/edit/${id}`,
+                data: JSON.stringify(book),
+                dataType: "json",
+                contentType: "application/json",
+            });
+            console.log(id);
             return response;
         } catch (error) {
             console.log(error);

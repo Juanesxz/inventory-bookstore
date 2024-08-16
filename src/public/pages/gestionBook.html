@@ -10,17 +10,24 @@
 
 <body>
 
+    <button id="modal">Abrir Modal</button>
+
+    <dialog class="modal" id="mainModal">
+        <h1>Gestion de libros</h1>
+    </dialog>
+
     <nav>
         <span>Inventory-Book</span>
         <ul>
 
-            <li><a href="../index.html">Gestion de libros</a></li>
-            <li><a href="./createBook.html">Agregar y actualizar</a></li>
-            <li><a>Categorias</a></li>
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="./gestionBook.html">Gestion de libros</a></li>
+            <li><a href="./pages/categories.html">Categorias</a></li>
         </ul>
     </nav>
 
     <form>
+        <input type="hidden" name="id" id="id" value="">
         <div>
             <label for="title">Titulo</label>
             <input type="text" name="title" id="title" />
@@ -47,10 +54,22 @@
             <input type="number" name="stock" id="stock" />
         </div>
 
-        <input id="create" type="submit" value="enviar">
+        <div>
+            <label for="status">Status</label>
+            <input type="text" name="status" id="status" />
+        </div>
+
+        <button id="create" type="submit">Guardar</button>
 
     </form>
-
+    <div class="pagination">
+        <div>
+            <input type="button" id="pageprevBooks" value="<">
+            <input id="pageactBooks" type="number" readonly>
+            <input type="button" id="pageafterBooks" value=">">
+        </div>
+        <label for="page">Página de Libros</label>
+    </div>
     <table border="1">
         <thead>
             <tr>

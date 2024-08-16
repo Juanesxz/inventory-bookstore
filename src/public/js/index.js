@@ -3,14 +3,20 @@ import CategoriesServices from "../services/CategoriesServices.js";
 
 $(document).ready(() => {
     const bookServices = new BookServices();
-    let currentPage = 1;
-    let totalPages = 1;  // Variable para almacenar el número total de páginas
     const categoryServices = new CategoriesServices();
 
+    let currentPageBooks = 1;
+    let totalPagesBooks = 1;
+
+    let currentPageBooksActive = 1;
+    let totalPagesBooksActive = 1;
+
+    let editingBookId = null;
+
     const getBooks = async (page = 1) => {
-        const books = await bookServices.getBooks();
-        totalPages = books.totalPages;  // Actualiza el total de páginas
-        console.log(books.totalPages);
+        const books = await bookServices.getBooks(page);
+        totalPagesBooks = books.totalPages;
+        console.log(books);
 
         const tbody = $("#tbody");
         tbody.html(
@@ -20,31 +26,27 @@ $(document).ready(() => {
                 <td>${i + 1}</td>
                 <td>${book.title}</td>
                 <td>${book.author}</td>
-                <td>${book.gender.name}</td>
+                <td>${book.gender?.name}</td>
                 <td>${book.price}</td>
                 <td>${book.stock}</td>
                 <td>${book.status}</td>
                 <td>
-                <a href="./pages/editBook.html?id=${book._id}">Editar</a>
+                <a href="#" class="edit" data-id="${book._id}">Editar</a>
                 <a href="#" class="delete" data-id="${book._id}">Eliminar</a>
                 </td>
             </tr>
             `;
             })
         );
-        $("#pageact").val(page);
-
-
+        $("#pageactBooks").val(page);
     };
-
 
     const getBooksActive = async (page = 1) => {
         const books = await bookServices.getBooksActive(page);
-        totalPages = books.totalPages;  // Actualiza el total de páginas
-        const card = $(".card");
+        totalPagesBooksActive = books.totalPages;
         console.log(books);
 
-
+        const card = $(".card");
         card.html(
             books.docs.map((book) => {
                 return `
@@ -70,14 +72,11 @@ $(document).ready(() => {
                         <label for="stock">Stock</label>
                         <h4>${book.stock}</h4>
                     </div>
-
-                    <button>Ver informacion</button>
-
-            </div>`;
+                </div>`;
             })
         );
+        $("#pageactBooksActive").val(page);
     };
-
 
     const resetForm = () => {
         $("#title").val("");
@@ -85,11 +84,14 @@ $(document).ready(() => {
         $("#gender").val("");
         $("#price").val("");
         $("#stock").val("");
+        $("#status").val("");
+        editingBookId = null;
+        $("#edit").text("Guardar").attr("id", "create");
     };
 
     const getCategories = async () => {
         const categories = await categoryServices.getCategories();
-        const select = $("#gender").html(
+        $("#gender").html(
             categories.map((category) => {
                 return `
             <option value="${category._id}">${category.name}</option>
@@ -100,7 +102,7 @@ $(document).ready(() => {
 
     getCategories();
 
-    const createBook = async (e) => {
+    const createandeditBook = async (e) => {
         e.preventDefault();
         const book = {
             title: $("#title").val(),
@@ -108,11 +110,19 @@ $(document).ready(() => {
             gender: $("#gender").val(),
             price: $("#price").val(),
             stock: $("#stock").val(),
+            status: $("#status").val(),
         };
 
-        await bookServices.createBook(book);
+        if (editingBookId) {
+            await bookServices.updateBook(editingBookId, book);
+            resetForm();
+            editingBookId = null;
+            $("#edit").text("Guardar").attr("id", "create");
+        } else {
+            await bookServices.createBook(book);
+        }
         resetForm();
-        getBooks();
+        getBooks(currentPageBooks); // Refrescamos la lista actual de libros
     };
 
     const deleteBook = async (e) => {
@@ -121,29 +131,57 @@ $(document).ready(() => {
 
         await bookServices.deleteBook(bookId);
 
-        getBooks();
+        getBooks(currentPageBooks);
     };
 
-    $("#pageprev").on("click", () => {
-        if (currentPage > 1) {
-            currentPage--;
-            getBooks(currentPage);
-            getBooksActive(currentPage);
+    const editBook = async (e) => {
+        e.preventDefault();
+        const bookId = $(e.target).data("id");
+        const book = await bookServices.getBook(bookId);
+
+        $("#title").val(book.title);
+        $("#author").val(book.author);
+        $("#gender").val(book.gender?._id);
+        $("#price").val(book.price);
+        $("#stock").val(book.stock);
+        $("#status").val(book.status);
+
+        editingBookId = bookId;
+        $("#create").text("Actualizar").attr("id", "edit");
+    };
+
+    $("#pageprevBooks").on("click", () => {
+        if (currentPageBooks > 1) {
+            currentPageBooks--;
+            getBooks(currentPageBooks);
         }
     });
 
-    $("#pageafter").on("click", () => {
-        if (currentPage < totalPages) {
-            currentPage++;
-            getBooks(currentPage);
-            getBooksActive(currentPage);
+    $("#pageafterBooks").on("click", () => {
+        if (currentPageBooks < totalPagesBooks) {
+            currentPageBooks++;
+            getBooks(currentPageBooks);
         }
     });
 
-    getBooks();
-    getBooksActive();
+    $("#pageprevBooksActive").on("click", () => {
+        if (currentPageBooksActive > 1) {
+            currentPageBooksActive--;
+            getBooksActive(currentPageBooksActive);
+        }
+    });
 
-    $("#create").on("click", createBook);
+    $("#pageafterBooksActive").on("click", () => {
+        if (currentPageBooksActive < totalPagesBooksActive) {
+            currentPageBooksActive++;
+            getBooksActive(currentPageBooksActive);
+        }
+    });
 
+    getBooks(currentPageBooks);
+    getBooksActive(currentPageBooksActive);
+
+    $("#create").on("click", createandeditBook);
     $(document).on("click", ".delete", deleteBook);
+    $(document).on("click", ".edit", editBook);
 });

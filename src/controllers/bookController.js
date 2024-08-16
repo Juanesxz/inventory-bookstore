@@ -27,6 +27,21 @@ export const getBooks = async (req, res) => {
     }
 }
 
+
+export const getBook = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const book = await bookModel.findById(id).populate("gender", "name");
+        if (!book) {
+            return res.status(404).send("Libro no encontrado");
+        }
+        res.send(book);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Error en el servidor");
+    }
+};
+
 export const getBookCategory = async (req, res) => {
     try {
         const { name } = req.params;
