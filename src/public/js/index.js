@@ -59,6 +59,8 @@ $(document).ready(() => {
             })
         );
         $("#pageactBooks").val(page);
+        $("#inicio").text(`${currentPageBooks}`);
+        $("#final").text(`${totalPagesBooks}`);
     };
 
     const getBooksActive = async (page = 1) => {
@@ -96,6 +98,8 @@ $(document).ready(() => {
             })
         );
         $("#pageactBooksActive").val(page);
+        $("#inicioa").text(`${currentPageBooksActive}`);
+        $("#finala").text(`${totalPagesBooksActive}`);
     };
 
     const resetForm = () => {
@@ -136,6 +140,7 @@ $(document).ready(() => {
             resetForm();
             editingBookId = null;
             $("#edit").text("Guardar").attr("id", "create");
+            modal.close();
         } else {
             await bookServices.createBook(book);
             modal.close();
@@ -147,9 +152,7 @@ $(document).ready(() => {
     const deleteBook = async (e) => {
         e.preventDefault();
         const bookId = $(e.target).data("id");
-
         await bookServices.deleteBook(bookId);
-
         getBooks(currentPageBooks);
     };
 
