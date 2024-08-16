@@ -1,11 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestion de categorias</title>
+    <link rel="stylesheet" href="../css/styleBook.css">
 </head>
+
 <body>
-    <h1>categorias</h1>
+
+
+    <nav>
+        <span>Inventory-Book</span>
+        <ul>
+
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="./gestionBook.html">Gestion de libros</a></li>
+            <li><a href="./categories.html">Categorias</a></li>
+        </ul>
+    </nav>
+    <div class="container-add">
+        <button id="btn-abrir-modal" class="btn-add">Agregar categoria</button>
+    </div>
+    <dialog id="modal">
+        <form method="dialog">
+            <input type="hidden" name="id" id="id" value="">
+            <div>
+                <label for="name">Titulo</label>
+                <input type="text" name="name" id="name" />
+            </div>
+
+            <button id="create" type="submit">Guardar</button>
+        </form>
+        <button id="btn-cerrar-modal">Cerrar</button>
+    </dialog>
+
+
+    <div class="container">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+
+            <tfoot>
+                <th scope="row" colspan="3">
+                    <div class="pagination">
+                        <div>
+                            <input type="button" id="pageprevBooks" value="<">
+                            <input id="pageactBooks" type="number" readonly>
+                            <input type="button" id="pageafterBooks" value=">">
+                        </div>
+                        <label for="page">Página <span id="inicio"></span> de <span id="final"></span> </label>
+                    </div>
+                </th>
+            </tfoot>
+        </table>
+
+    </div>
+
+
+
 </body>
+
+<script src="../vendor/js/JQuery.js"></script>
+<script type="module" src="../services/CategoriesServices.js"></script>
+<script type="module" src="../js/categories.js"></script>
+
 </html>

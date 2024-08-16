@@ -17,6 +17,20 @@ export const createCategory = async (req, res) => {
     }
 }
 
+export const getCategory = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const book = await categoriesModel.findById(id);
+        if (!book) {
+            return res.status(404).send("Libro no encontrado");
+        }
+        res.send(book);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Error en el servidor");
+    }
+};
+
 export const editCategory = async (req, res) => {
     try {
         const { id } = req.params;
